@@ -21,7 +21,7 @@ class App extends Component {
   }
 
   componentDidMount(){
-    this.generateRandomArray(arraySize) // is this necessary??????
+    this.generateRandomArray(arraySize) 
   }
 
   generateRandomArray(arraySize){
@@ -53,13 +53,14 @@ class App extends Component {
 
   sortSpeedSlide(){
     sortSpeed = document.getElementById('sortSpeed').valueAsNumber
+    console.log(sortSpeed)
   }
 
   resolveAfterTime(x) {// this is currently unused (it was the first method used for animation without color)
     return new Promise(resolve => {
       setTimeout(() => {
         this.setState({x})
-        resolve(x); // what is best practice for async/await/promises
+        resolve(x); 
       }, sortSpeed);
     });
   }
@@ -85,7 +86,7 @@ class App extends Component {
 
   bubbleSortVisualizer(){
     this.resetArray()
-    console.log(this.state.array)
+    // console.log(this.state.array)
 
     let arrAnimation = bubbleSortAnimation(this.state.array)
     if(running ===true){
@@ -236,7 +237,8 @@ class App extends Component {
   }
 
   render() { 
-    const array = this.state.array; // what/ why is this necessary????
+    const array = this.state.array; 
+    const running = this.running;
 
     return (
       <div className='big'>
@@ -252,9 +254,9 @@ class App extends Component {
         </div>
         <div className = 'buttons'>
           <input type="range" min="5" max="85" id="sld" step = '10' onChange={()=>this.arraySizeSlide()}/> 
-          <label for= 'sld'>Array Size</label>
-          <input type="range" min=".002" max=".202" id="sortSpeed" step = '.04' onChange={()=>this.sortSpeedSlide()}/>
-          <label for= 'sortSpeed'>Speed</label>
+          <label htmlFor= 'sld'>Array Size</label>
+          <input type="range" disabled = {running==true} min=".006" max=".206" defaultValue = {sortSpeed} id="sortSpeed" step = '.04' onChange={()=>this.sortSpeedSlide()}/>
+          <label htmlFor= 'sortSpeed'>Speed</label>
           <button id='new' onClick={()=>this.generateRandomArray(arraySize)}>New Array</button>
           <button id = 'bubble' onClick={()=> this.bubbleSortVisualizer()}>Bubble Sort</button>
           <button id = 'merge' onClick={()=> this.mergeSortVisualizer()}>Merge Sort</button>
